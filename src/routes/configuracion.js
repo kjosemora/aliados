@@ -1,30 +1,26 @@
 import express from 'express';
+import ConfigController from '../controllers/ConfigController.js';
+import MonedaController from '../controllers/MonedaController.js';
+import UsuarioController from '../controllers/UsuarioController.js';
+import RolController from '../controllers/RolController.js';
+
 const router = express.Router();
 
-/**
- * @route   GET /api/v1/configuracion
- * @desc    Obtener configuración general de la empresa
- * @access  Private/Admin
- */
-router.get('/', (req, res) => {
-    res.json({ message: 'Obtener configuración de la empresa' });
-});
+// EMPRESA CONFIG
+router.get('/', ConfigController.get);
+router.put('/', ConfigController.update);
 
-/**
- * @route   PUT /api/v1/configuracion
- * @desc    Actualizar configuración de la empresa
- * @access  Private/Admin
- */
-router.put('/', (req, res) => {
-    res.json({ message: 'Configuración actualizada' });
-});
+// MONEDAS
+router.get('/monedas', MonedaController.getAll);
+router.put('/monedas/:codigo', MonedaController.updateTasa);
 
-/**
- * @route   GET /api/v1/configuracion/monedas
- * @desc    Listar monedas y tasas
- */
-router.get('/monedas', (req, res) => {
-    res.json({ message: 'Listado de monedas' });
-});
+// USUARIOS
+router.get('/usuarios', UsuarioController.getAll);
+router.post('/usuarios', UsuarioController.create);
+router.put('/usuarios/:codigo', UsuarioController.update);
+
+// ROLES
+router.get('/roles', RolController.getAll);
+router.post('/roles', RolController.create);
 
 export default router;
